@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+           background-image:url("https://www.adventurebikerider.com/wp-content/uploads/2017/10/tumblr_o27c7fByaO1tchrkco1_500.gif");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+
+        }
+        #nav img{
+            height:150px;
+        }
+         #nav{
+             display: flex;
+             justify-content: space-between;
+            
+         }
+         #search{
+             height:500px;
+             width:25%;
+             background-color: rgba(0, 0, 0, 0.555);
+             padding: 30px 0 0 50px;
+         }
+         #search > input{
+             border:0px;
+             background:transparent;
+             border-bottom: 1px solid rgb(255, 255, 255);
+             height: 25px;
+             color:white;
+             font-size: 20px;;
+         }
+         #search > button {
+             width: 25px;
+             height: 27px;
+             padding-top: 6px;
+             padding-bottom: 8px;
+             background-color: orange;
+             border: 0;
+             margin-left: 20px;
+         }
+         #search > button > img {
+             height: 80%;
+         }
+         input:focus {
+             outline: none;
+         }
+         #info{
+             font-size:large;
+             color:white;
+             margin-top: 50px;
+         }
+         #info > p {
+             font-size: 25px;
+         }
+        #forcast{
+            height:200px;
+            display: flex;
+            color:white;
+            gap:40px;
+            text-align: center;
+        }
+        #logoii{
+            height:40px;
+        }
+        #back{
+            background-color: #000000c4;
+            height:250px;
+            width:250px;
+        }
+        @media only screen and (max-width: 600px){
+            #nav{
+                display: flex;
+                flex-direction: column;
+            }
+            #nav img{
+                height:70px;
+                margin-left:20%;
+            }
+            iframe{
+                height:300px;
+                width:100%;
+                margin-bottom: 20px;;
+            }
+            #city{
+                width:40%;
+            }
+            #info{
+                width:100%;
+                height:800px;
+                font-size: 10px;
+            }
+            #search{
+                width:100%;
+            }
+            #forcast{
+                display: grid;
+                grid-template-columns: repeat(2,1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="nav">
+        <div>
+            <img src="https://www.gifservice.fr/img/gif-vignette-large/044b1d173f412bd46b953db754cbda4c/177597-logo-wild-weather-uk-beers.gif" alt="">
+        </div>
+        <div class="mapouter"><div class="gmap_canvas">
+            <iframe width="600" 
+            height="500"
+            id="gmap_canvas"
+             src= "" 
+             frameborder="0" 
+             scrolling="yes" 
+             marginheight="0"
+              marginwidth="0">
+            </iframe>
+             </div></div>
+             
+        <div id="search">
+            <input type="text"  id="city">
+            <button  id="wet"><img src="http://primedepartamentos.com/images/icons/search-icon-white.png" ></button>
+            <div id="info">
+            </div>
+        </div>
+    </div>
+    <div id="forcast">
+
+    </div>
+    
+   
+</body>
+</html>
+<script>
+
+    //https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&exclude=hourly,minutely,current&appid=4c720ebec900cabef71eb3e672d8d8f0&units=metric
+
+    document.getElementById("wet").addEventListener("click",showwether)
+    
+function showwether(){
+    var city=document.getElementById("city").value;
+    
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=1491a393e834ba7410730a132cd1e276 `
+    fetch(url)
+    .then(function(j){
+       return j.json()
+    })
+    .then(function(res){
+        console.log("res",res)
+        append(res)
+        fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${res.coord.lat}&lon=${res.coord.lon}&exclude=hourly,minutely,current,timezone&appid=4c720ebec900cabef71eb3e672d8d8f0&units=metric`)
+        .then(function(res2){
+            return res2.json()
+        }).then(function(data){
+            console.log("data",data.daily)
+            forcastdata(data.daily)
+            const unixTime = data.daily[0].dt;
+            const date = new Date(unixTime * 1000)
+            console.log(date)
+        })
+    })
+    .catch(function(err){
+        console.log("err",err)
+    })
+}
+ 
+var info=document.getElementById("info")
+function append(data){
+    info.innerHTML=null
+    var detail=document.createElement("h1");
+    detail.innerText="Wether Details";
+
+    var city=document.createElement("p")
+    city.innerText= `City : ${data.name} ☀`
+
+    var min=document.createElement("p")
+  min.innerText= `Min Temp : ${data.main.temp_min}℃`
+
+    var max=document.createElement("p")
+    max.innerText= `Max Temp : ${data.main.temp}℃`
+
+    var current=document.createElement("p")
+    current.innerText= `Current Temp : ${data.main.temp_min}`
+
+    var wind=document.createElement("p")
+    wind.innerText=`Wind speed ${data.wind.speed}m/s`
+
+    
+     info.append(detail,city,min,max,current,wind,)
+    
+
+     let map = document.getElementById("gmap_canvas")
+    map.src=`https://maps.google.com/maps?q=${data.name}=&z=13&ie=UTF8&iwloc=&output=embed`
+}
+
+
+
+
+
+function getwet(){
+        navigator.geolocation.getCurrentPosition(success)
+     function success(pos){
+            var crd = pos.coords;
+        console.log('Your current position is:');
+        console.log(`Latitude : ${crd.latitude}`);
+        console.log(`Longitude: ${crd.longitude}`);
+        console.log(`More or less ${crd.accuracy} meters.`);
+        wethercurrent(crd.latitude,crd.longitude)
+    }
+    
+}
+
+function wethercurrent(lat,lon){
+    let url=`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=1491a393e834ba7410730a132cd1e276`
+    fetch(url)
+    .then(function(j){
+       return j.json()
+    })
+    .then(function(res){
+        console.log("res",res)
+        append2(res)
+    })
+    .catch(function(err){
+        console.log("err",err)
+    })
+}
+getwet()
+
+function append2(data){
+    info.innerHTML=null
+    var detail=document.createElement("h1");
+    detail.innerText="Current Location Wether";
+
+    var city=document.createElement("p")
+    city.innerText= `City : ${data.name} ☀`
+
+    var min=document.createElement("p")
+  min.innerText= `Min Temp : ${data.main.temp_min}℃`
+
+    var max=document.createElement("p")
+    max.innerText= `Max Temp : ${data.main.temp}℃`
+
+    var current=document.createElement("p")
+    current.innerText= `Current Temp : ${data.main.temp_min}`
+
+    var wind=document.createElement("p")
+    wind.innerText=`Wind speed ${data.wind.speed}m/s`
+
+    
+     info.append(detail,city,min,max,current,wind,)
+    
+
+     let map = document.getElementById("gmap_canvas")
+    map.src=`https://maps.google.com/maps?q=${data.name}=&z=13&ie=UTF8&iwloc=&output=embed`
+}
+
+function forcastdata(data){
+    var forcast=document.getElementById("forcast")
+    data.map(function(el){
+        let div=document.createElement("div")
+        div.setAttribute("id","back")
+
+        let dateBox = document.createElement("h2");
+
+          const unixTime = el.dt;
+          const date = new Date(unixTime * 1000)
+          console.log("y",)
+          console.log("y", )
+          console.log("y",)
+          dateBox.innerText = `${date.toLocaleString("en-us", { weekday: "short" })}  ${ date.getDate()}  ${date.toLocaleString("default", { month: "short" })}`
+   
+          let img=document.createElement("img")
+          img.src=`https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuvN-uMfqvrJmQusnBlv8O6KHNesXFMW5dGg&usqp=CAU`
+          img.setAttribute("id","logoii")
+
+          let min=document.createElement("h3")
+          min.innerText=` min temp :${el.temp.min}℃`
+
+
+            let max=document.createElement("h3")
+            max.innerText=` max temp: ${el.temp.max}℃`
+
+            let weather=document.createElement("h3")
+            weather.innerText=`Wether : ${el.weather[0].main}℃`
+
+            div.append(dateBox,img,min,max,weather)
+            forcast.append(div)
+    })
+}
+</script>
+
+    

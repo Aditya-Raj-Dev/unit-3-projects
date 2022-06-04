@@ -1,0 +1,45 @@
+#navbar{
+    background-image:url("https://b.zmtcdn.com/web_assets/81f3ff974d82520780078ba1cfbd453a1583259680.png") ;
+    width: 100%;
+    height:600px;
+    margin: 0%;
+    padding: 0%;
+    background-repeat: no-repeat;
+    background-size: 100%;
+
+}
+#name{
+    font-size: 100px;
+    margin:auto;
+   text-align: center;
+   padding-top: 140px;
+   color: white;
+   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+ 
+}
+#des{
+    color: white;
+    margin:auto;
+    text-align: center;
+    font-size: 50px;
+    font-family: sans-serif;
+}
+#input{
+    margin-left: 34%;
+    width:35%;
+    height:70px;
+    margin-top: 20px;
+    border-radius: 15px;
+    font-size: 30px;
+}
+::placeholder{
+    font-size: 30px;
+    
+}
+#meal{
+    color: white;
+    display: flex;
+    font-size: 50px;
+    margin-left: 70%;
+    gap: 30px;
+}

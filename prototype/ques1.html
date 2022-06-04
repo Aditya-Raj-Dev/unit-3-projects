@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    function myArray(){
+        Object.defineProperty(this,"length",{
+            value:0,
+            writable:true,
+            enumerable:false,
+        })
+        this.length=arguments.length
+        
+        for(var i=0; i<this.length; i++){
+
+            this[i]=arguments[i]
+        }
+    }
+    var my= new myArray("a","b","y");
+  
+    
+   myArray.prototype.push =function(value){
+       let index= this.length;
+       this[index]=value;
+       this.length++;
+   }
+    my.push("b")
+    my.push("n")
+   
+ 
+
+    myArray.prototype.pop =function(){
+        var len = this.length-1;
+        delete this[len];
+        this.length--
+    }
+    my.pop()
+    
+
+    myArray.prototype.top= function(){
+        var index= this.length-1;
+        for(var i=index-1; i>=0; i--){
+            delete this[i]
+
+        }
+    }
+    // my.top()
+    
+
+    myArray.prototype.print=function(){
+        var index= this.length;
+        var bag=[]
+        for(var i=0; i<index; i++){
+           bag[bag.length]=this[i]
+        }
+        console.log(bag)
+    }
+    my.print()
+   
+
+    myArray.prototype.printReverse= function(){
+        var index= this.length-1;
+        var bag=[]
+        for(var i=index; i>=0; i--){
+           bag[bag.length]=this[i]
+        }
+        console.log(bag)
+    }
+    my.printReverse()
+    console.log("m",Object.values(my))
+
+    myArray.prototype.size=function(){
+        return this.length
+    }
+    console.log(my.size())
+</script>

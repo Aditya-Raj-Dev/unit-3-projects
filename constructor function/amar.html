@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    let amar={
+        name:"amar",
+        work:"singing",
+        lives:"goa",
+    }
+
+    let akbar={
+        name:"akbar",
+        work:"chef",
+        lives:"mumbai",
+    }
+
+    let anthony={
+        name:"anthony",
+        work:"magician",
+        lives:"kashmir",
+    }
+
+    function Akbar(){
+        console.log( `I am Akbar my work is ${this.work} and i lives in ${this.lives}`)
+    }
+    function Amar(){
+        console.log( `I am Amar my work is ${this.work} and i lives in ${this.lives}`)
+    }
+    function Anthony(){
+        console.log( `I am Anthony my work is ${this.work} and i lives in ${this.lives}`)
+    }
+
+    Akbar.call(anthony)
+    Amar.call(akbar)
+    Anthony.call(amar)
+</script>

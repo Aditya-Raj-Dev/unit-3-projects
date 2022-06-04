@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      #form{
+        height:240px;
+        border: 1px solid rgb(0, 174, 255);
+        background-color: rgba(184, 219, 219, 0.836);
+        display: flex;
+        flex-direction: column;
+        gap:8px;
+        width:13%;
+        margin: auto;
+       margin-top: 15%;
+       padding:20px;
+       padding-top: 40px;
+      }
+#submit{
+  background-color: aqua;
+}
+
+    </style>
+    <title>signup</title>
+  </head>
+  <body>
+    <div></div>
+    <form id="form">
+      Email<input id="email" type="text" placeholder="enter email" />
+      Name<input id="name" type="text" placeholder="Enter username" />
+      Password<input id="pass" type="text" placeholder="Enter password" />
+      <input type="submit"  id="submit" />
+    </form>
+  </body>
+</html>
+
+<script type="module">
+  import navbar from "./navbar.js"
+  
+   let header=document.getElementById("header")
+   header.innerHTML= navbar();
+   </script>
+<script>
+  var form=document.querySelector("form").addEventListener("submit",signup)
+var signuparr= JSON.parse(localStorage.getItem("signupdata")) || []
+  function signup(){
+    event.preventDefault()
+    var signupdetail={
+      email: document.querySelector("#email").value,
+      name: document.getElementById("name").value,
+      pass: document.getElementById("pass").value,
+    }
+    signuparr.push(signupdetail)
+    console.log(signuparr)
+    localStorage.setItem("signupdata",JSON.stringify(signuparr))
+    window.location.href="login.html"
+  }
+
+</script>

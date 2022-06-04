@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box{
+            height:700px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+</body>
+</html>
+<script>
+    let box=document.getElementById("box")
+    let video= JSON.parse(localStorage.getItem("video")) || []
+    
+    let iframe=document.createElement("iframe")
+    iframe.src=`https://www.youtube.com/embed/${video}`
+    iframe.width="100%";
+    iframe.height="100%";
+    iframe.allowFullscreen="100%";
+      box.append(iframe)
+
+</script>

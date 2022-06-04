@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <style>
+      #form{
+        height:160px;
+        border: 1px solid rgb(0, 174, 255);
+        background-color: rgba(184, 219, 219, 0.836);
+        display: flex;
+        flex-direction: column;
+        gap:8px;
+        width:13%;
+        margin: auto;
+       margin-top: 10%;
+       padding:20px;
+       padding-top: 20px;
+      }
+#submit{
+  background-color: aqua;
+}
+
+    </style>
+  </head>
+  <body>
+    <h1>Login</h1>
+    <form id="form">
+      Name<input id="user" type="text" placeholder="Enter username" />
+      Password<input id="pass" type="password" placeholder="Enter password" />
+      <input type="submit" value="login" id="submit" />
+    </form>
+  </body>
+</html>
+
+<script>
+var details=  JSON.parse(localStorage.getItem("signupdata")) 
+console.log(details)
+ var form=document.querySelector("#form")
+
+ form.addEventListener("submit",logindetail)
+ 
+ function logindetail(){
+   event.preventDefault()
+   
+    var name=form.user.value;
+     var pass=form.pass.value;
+  
+     var c=0
+for(var i=0; i<details.length; i++){
+ var user=details[i].name
+ var password= details[i].pass
+ if(name==user && pass==password){
+   c=1
+   break
+ }
+ else{
+  c=0
+ }
+}
+if(c==1){
+  alert("login sucess")
+  window.location.href="first.html"
+}
+else{
+  if(name!=user){
+    alert("Enter correct name")
+  }
+  else{
+    alert("Enter correct Password")
+  }
+}
+ }
+
+ 
+
+</script>

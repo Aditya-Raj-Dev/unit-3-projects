@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #img img{
+            height:200px;
+          
+        }
+        #img{
+            justify-content: space-between;
+            display: flex;
+            margin-bottom: 50px;
+
+        }
+        #id{
+         margin-left: 80%;
+         margin-bottom:60px;
+         color:red
+        }
+        #menu{
+            display: flex;
+            flex-direction: column;
+            gap: 10PX;
+           width:10%;
+           height: 250px;;
+         color: white;
+       font-size:larger;
+       background-color: black; 
+       margin-bottom: 10px;
+        }
+        h1{
+            line-height: 2px;;
+        }
+        #order{
+            font-family: sans-serif; 
+            font-size:larger;
+            font-weight: bold;
+        }
+        #slideshow img{
+            height: 400px;
+            width:400px;
+            border-radius:20%;
+            border: 4px solid rgb(0, 255, 255);
+        }
+        
+        #flex{
+            display: flex;
+            justify-content: space-between;
+        }
+        #readyorder{
+            justify-content: center;
+            text-align: center;
+            
+        }
+        #foodimg{
+            height:400px;
+        }
+    </style>
+</head>
+<body>
+    <div id="img">
+
+        <div> <img src="https://blog.logomyway.com/wp-content/uploads/2017/01/mcdonalds-logo-1.jpg" alt=""></div>
+<img src="https://images.squarespace-cdn.com/content/v1/5c8813c37a1fbd581e738326/1552489581464-1CR1EA8KH7N6093SADX1/Welcome.png" alt="">
+        <div> <img src="https://image.elle.se/mcdonalds-clown-ibl-4844819.jpg?imageId=4844819&width=480&height=274" alt=""></div>
+    </div>
+    <h1 id="id"></h1>
+    <div id="flex">
+        <div id="menu">
+            <h1>MENU</h1>
+    <div>
+        <input type="checkbox" id="burger" value="burger">
+        <label for="burger">plane Burger</label>
+    </div>
+    <div>
+        <input type="checkbox" id="fries" value="fries">
+        <label for="fries">Fries</label>
+    </div>
+    <div>
+        <input type="checkbox" id="coke" value="coke">
+        <label for="coke">Coca-Cola</label>
+    </div>
+    <div>
+        <input type="checkbox" id="rolls" value="rolls">
+        <label for="rolls">Chiken ROll</label>
+    </div>
+    <div>
+        <input type="checkbox" id="combo" value="combo">
+        <label for="combo">Full Meal</label>
+    </div>   
+    <button id="order">ORDER FOOD</button>
+        </div>
+        <div id="readyorder">
+            <h2 id="written"></h2>
+            <img id="foodimg">
+        </div>
+        <div id="slideshow">
+    
+        </div>
+    </div>
+    
+</body>
+</html>
+<script>
+    var foodarr=["https://b.zmtcdn.com/data/pictures/6/5196/cc05a523ff0cbf188818b5eefca01d13.jpg?fit=around|771.75:416.25&crop=771.75:416.25;*,*",
+"https://www.eatthis.com/wp-content/uploads/sites/4/2021/06/mcdonalds-tray.jpg?quality=82&strip=1",
+"https://cdn1.matadornetwork.com/blogs/1/2018/09/McDonalds-menu-items-from-around-the-world-940x685.jpeg",
+"https://i.insider.com/53a9d02becad04fd3af8649a?width=600&format=jpeg&auto=webp",
+"https://i.pinimg.com/736x/ce/48/9b/ce489b89fe96152a8223275e1cf73bd5.jpg"]
+
+    var order=document.getElementById("order")
+    order.addEventListener("click",showfood)
+
+ var burger=document.getElementById("burger")
+ var fries=document.getElementById("fries")
+ var coke=document.getElementById("coke")
+ var rolls=document.getElementById("rolls")
+ var combo=document.getElementById("combo")
+
+ var written=document.getElementById("written")
+ var foodimg=document.getElementById("foodimg")
+
+var id=document.getElementById("id")
+ 
+    function showfood(){
+        written.innerText=""
+        foodimg.src=""
+        if(burger.checked==false && fries.checked==false  && coke.checked==false && rolls.checked==false && combo.checked==false){  
+            written.innerText="Please Select Your Order"
+            foodimg.src="https://images.squarespace-cdn.com/content/v1/5fe9fd2b8dc8ae15a038bc53/1627282434967-IHU6NDCUB5PV7ZHW1NDE/comp_3.gif"
+        }
+        else{
+            let myprom= new Promise(function(resolve,reject){
+  let time= Math.random()*10*1000
+            setTimeout(function(){
+                
+                if(burger.checked==true){
+                    resolve("Your Burger is Ready")
+                    myprom.then(function(res){
+            var written=document.getElementById("written")
+            id.innerText="Order Id #334"
+            written.innerText=res
+            var foodimg=document.getElementById("foodimg")
+            foodimg.src="https://media0.giphy.com/media/f9engJjcuExUJ2qBjZ/giphy.gif?cid=ecf05e479qz558gkruss4pu8p6qacnuxkio0p51lv09ehfye&rid=giphy.gif&ct=g"
+        }).catch(function(err){
+            var written=document.getElementById("written")
+            written.innerText=err
+            var foodimg=document.getElementById("foodimg")
+            foodimg.src="https://images.squarespace-cdn.com/content/v1/5fe9fd2b8dc8ae15a038bc53/1627282434967-IHU6NDCUB5PV7ZHW1NDE/comp_3.gif"
+        })
+                }
+
+                else if(fries.checked==true){
+                    resolve("Your Fries is Ready")
+                    myprom.then(function(res){
+            var written=document.getElementById("written")
+            id.innerText="Order Id #9965"
+            written.innerText=res
+            var foodimg=document.getElementById("foodimg")
+            foodimg.src="https://media3.giphy.com/media/XGyPddZEvwXnbNyzSI/giphy.gif"
+        })
+                }
+            else if(coke.checked==true){
+                 resolve("Your coke is Ready")
+                    myprom.then(function(res){
+            var written=document.getElementById("written")
+            id.innerText="Order Id #778"
+            written.innerText=res
+            var foodimg=document.getElementById("foodimg")
+            foodimg.src="https://c.tenor.com/17j6C8Ic9cMAAAAC/coca-cola-coke.gif"
+        })
+    }
+    else if(rolls.checked==true){
+                 resolve("Your Chiken Roll is Ready")
+                    myprom.then(function(res){
+            var written=document.getElementById("written")
+            id.innerText="Order Id #3537"
+            written.innerText=res
+            var foodimg=document.getElementById("foodimg")
+            foodimg.src="https://media4.giphy.com/media/kWToTSweCl3IUfeUhV/giphy.gif"
+        })
+    }
+    else if(combo.checked==true){
+                 resolve("Your Full Meal is Ready")
+                    myprom.then(function(res){
+            var written=document.getElementById("written")
+            id.innerText="Order Id #22"
+            written.innerText=res
+            var foodimg=document.getElementById("foodimg")
+            foodimg.src="https://media1.giphy.com/media/2wgTJd7insrObXHOxM/giphy.gif"
+        })
+    }
+        },time)
+        });
+        
+    }
+
+        }
+        
+let fdimg=document.createElement("img")
+
+   let i=0
+    setInterval(function(){
+      if(i==foodarr.length){
+          i=0
+      }
+      fdimg.src=foodarr[i]
+slideshow.append(fdimg)
+i++
+    },3000)
+   
+    
+</script>

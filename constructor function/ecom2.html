@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #display{
+            display:grid;
+            grid-template-columns: repeat(4,1fr);
+            gap:30px;
+        }
+        
+        img{
+            height: 200px;
+            width:200px;
+        }
+        #remove{
+            pointer-events: stroke;
+        }
+    </style>
+</head>
+<body>
+    <div id="display"></div>
+</body>
+</html>
+<script>
+    var products= JSON.parse(localStorage.getItem("product")) || []
+  
+  products.map(function(elem,index,arr){
+
+      var div=document.createElement("div")
+      div.setAttribute("id","div")
+    var box=document.getElementById("display")
+
+      var p=document.createElement("h1")
+      p.innerText=elem.product
+      
+
+      var c=document.createElement("h2")
+      c.innerText=elem.Category
+      
+
+      var gender=document.createElement("h2")
+      gender.innerText=elem.gender
+
+      var price=document.createElement("h3")
+      price.innerText=elem.price
+
+      var sold=document.createElement("h2")
+      sold.innerText=elem.sold
+
+      var img=document.createElement("img")
+      img.src=elem.image
+
+      var soldb= document.createElement("button")
+      soldb.addEventListener("click",function(){
+          soldfunction()
+      })
+          
+      soldb.innerText="sold"
+
+      var Remove= document.createElement("button")
+      Remove.setAttribute("id","remove")
+      Remove.addEventListener("click",function(){
+        removefunction(index)
+      })
+      Remove.innerText="Remove"
+
+
+      div.append(p,img,c,gender,price,sold,soldb,Remove)
+
+      box.append(div)
+
+      function removefunction(){
+          console.log(products)
+          products.splice(index,1);
+          localStorage.setItem("product",JSON.stringify(products))
+       div.innerHTML=null;
+
+      }
+      function soldfunction(){
+        sold.innerText="true";
+        sold.style.color="green"
+      }
+
+  })
+</script>

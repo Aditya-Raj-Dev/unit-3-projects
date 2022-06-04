@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automobile</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    var jaguar={
+        wheels:4,
+        owner:"TATA",
+        musicsystem:"Sony",
+        airbag:"air",
+        AI:"ss",
+        screen:"Samsung",
+        color:"Black",
+    };
+
+    var Land_ROver=Object.create(jaguar)
+    Land_ROver.color="red";
+    Land_ROver.price="1.5cr"
+    console.log("Land Rover",Land_ROver)
+
+
+    function nano(){
+        console.log(` 10000 peices of Nano  color will be ${this.color} `)
+
+    }
+    nano.call(jaguar)
+    nano.call(Land_ROver)
+</script>

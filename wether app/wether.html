@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="getwether()">current location wether</button>
+    <input type="text " id="city">
+    <button onclick="showwether()"  id="wet">wether</button>
+    <div id="box"></div>
+    <div class="mapouter"><div class="gmap_canvas">
+        <iframe width="600" 
+        height="500" 
+        id="gmap_canvas" 
+        
+         frameborder="0" 
+         scrolling="no"
+          marginheight="0"
+           marginwidth="0">
+        </iframe>
+        </style>
+    </div></div>
+
+</body>
+</html>
+<script>
+
+    // current=`https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}`
+
+// let url=`https://api.openweathermap.org/data/2.5/weather?q=delhi&appid=1491a393e834ba7410730a132cd1e276`
+
+// src="https://maps.google.com/maps?q=jhansi&t=&z=11&ie=UTF8&iwloc=&output=embed"
+
+document.getElementById("wet").addEventListener("keyup",showwether)
+
+function showwether(data){
+    let city=document.getElementById("city").value
+
+    let url=`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=1491a393e834ba7410730a132cd1e276`
+    
+    fetch(url)
+.then(function(res){
+    return res.json()
+}).then(function(res){
+    console.log(res)
+    append(res)
+    
+})
+.catch(function(err){
+    console.log(err)
+});
+}
+
+
+
+
+function append(data){
+    
+let box=document.getElementById("box")
+let map=document.getElementById("gmap_canvas");
+box.innerHTML=null
+
+let city=document.createElement("p")
+city.innerText=`city name: ${data.name}`
+
+let min=document.createElement("p")
+min.innerText=`min temp: ${data.main.temp_min}`
+
+let max=document.createElement("p")
+max.innerText=`max tempreture:  ${data.main.temp_max}`;
+
+let current=document.createElement("p")
+current.innerText=` tempreture:  ${data.main.temp}`
+
+let humidity=document.createElement("p");
+humidity.innerText=`humidity:  ${data.main.humidity}`
+
+box.append(city,min,max,current,humidity)
+document.body.append(box)
+map.src=`https://maps.google.com/maps?q=${data.name}&t=&z=11&ie=UTF8&iwloc=&output=embed`
+};
+
+
+function getlocation(lat,long){
+   
+    let url=`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=1491a393e834ba7410730a132cd1e276`
+    
+    fetch(url)
+.then(function(res){
+    return res.json()
+}).then(function(res){
+    console.log(res)
+    append(res)
+    
+})
+.catch(function(err){
+    console.log(err)
+});
+}
+
+
+function getwether(){
+    navigator.geolocation.getCurrentPosition(success);
+
+function success(position){
+    var crd = position.coords;
+
+console.log('Your current position is:');
+console.log(`Latitude : ${crd.latitude}`);
+console.log(`Longitude: ${crd.longitude}`);
+console.log(`More or less ${crd.accuracy} meters.`);
+getlocation(crd.latitude,crd.longitude)
+}
+
+}
+
+</script>

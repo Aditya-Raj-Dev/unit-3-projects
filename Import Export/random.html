@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Document</title>
+    <style>
+         
+      
+      #navbar{
+          background-image:url("https://b.zmtcdn.com/web_assets/81f3ff974d82520780078ba1cfbd453a1583259680.png") ;
+          width: 100%;
+          height:600px;
+          margin: 0%;
+          padding: 0%;
+          background-repeat: no-repeat;
+          background-size: 100%;
+          margin-bottom: 20px;
+
+      }
+      #name{
+          font-size: 100px;
+          margin:auto;
+         text-align: center;
+         padding-top: 140px;
+         color: white;
+         font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+       
+      }
+      #des{
+          color: white;
+          margin:auto;
+          text-align: center;
+          font-size: 50px;
+          font-family: sans-serif;
+      }
+      #input{
+          margin-left: 34%;
+          width:35%;
+          height:70px;
+          margin-top: 20px;
+          border-radius: 15px;
+          font-size: 30px;
+      }
+      #navbar ::placeholder{
+          font-size: 30px;
+          
+      }
+      #meal{
+          color: white;
+          display: flex;
+          font-size: 50px;
+          margin-left: 70%;
+          gap: 30px;
+      }
+      #food{
+          height:30px;
+          border-radius: 10px;
+          background-color: aqua;
+      }
+      #food:hover{
+          background-color: white;
+          cursor:auto;
+      }
+      #box{
+          display:grid;
+          grid-template-columns: repeat(3,1fr);
+      }
+      #box img{
+         height:200px;
+      }
+  </style>
+    </style>
+   
+</head>
+<body>
+    <div id="header"></div>
+  
+    <button id="button">RECIPIE OF THE DAY</button>
+    
+    <div id="container">
+        <div id="box">
+
+       </div>
+    </div>
+</body>
+</html>
+
+<script type="module">
+   import navbar from "./navbar.js"
+   let header=document.getElementById("header")
+   header.innerHTML=navbar();
+
+   import {showdata,appenddata} from "./scripts/fetch.js"
+
+
+
+   let button=document.getElementById("button").addEventListener("click",async function(){
+     await showdata(`https://www.themealdb.com/api/json/v1/1/random.php`)
+})
+</script>

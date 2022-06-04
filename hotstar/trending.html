@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #trend{
+        text-align: center;
+        background-color: yellow;
+        color:red
+    }
+    #box{
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+    }
+</style>
+<body>
+    <div>
+        <h1 id="trend">Trending Movies</h1>
+    </div>
+    <div id="box"></div>
+</body>
+</html>
+<script>
+  
+    async function showmovie(){
+ try{
+       
+    const url=`https://www.omdbapi.com/?apikey=9c3efe9&s=movies`
+    let res = await fetch(url) 
+    let data= await res.json()
+    console.log(data.Search)
+    appendmovies(data.Search)
+    
+ }
+ catch(err){
+     console.log(err)
+ }
+}
+showmovie()
+
+function appendmovies(data){
+      
+      let movies=document.getElementById("box")
+      movies.innerHTML=null;
+  
+      data.map(function({Title,Poster,Year,Type}){
+          
+  
+      let div=document.createElement("div")
+      div.setAttribute("id","boxdiv")
+     
+  
+      let img=document.createElement("img")
+      img.src=Poster;
+  
+      let title=document.createElement("h4")
+      title.innerText=Title;
+  
+      div.append(img,title)
+      movies.append(div)
+      })
+    }
+</script>

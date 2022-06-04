@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #form{
+            height: 300px;
+            width:13%;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            gap:5px;
+            margin-top: 10%;
+            background-color: aqua;
+            padding: 3%;
+        }
+
+    </style>
+</head>
+<body>
+    <form id="form">
+        Product<input type="text" id="name" placeholder="Product Name">
+        Category<input type="text" id="Category" placeholder="Category">
+        Image<input type="text" id="image" placeholder="Image url">
+       price <input type="number" id="price" placeholder="price">
+        Gender<select name="gender" id="gender">
+            <option value="male" >Male</option>
+            <option value="female">Female</option>
+        </select>
+        Sold<select name="sold" id="sold">
+            <option value="flase">False</option>
+            <option value="true" >True</option>
+            
+        </select>
+      
+        <input type="submit"  id="add">
+
+    
+    </form>
+</body>
+</html>
+<script>
+var form=document.getElementById("form")
+form.addEventListener("submit",productfunction)
+
+function productsdata(pr,c,i,pe,g,s){
+    this.product=pr;
+    this.Category=c;
+    this.image=i;
+    this.price=pe;
+    this.gender=g;
+    this.sold=s;
+}
+
+var arr=[]
+ function productfunction(event){
+     event.preventDefault()
+     var form=document.getElementById("form")
+     let product= form.name.value;
+     let category=form.Category.value;
+     let image=form.image.value;
+     let price=form.price.value;
+     let gender=form.gender.value;
+     let sold=form.sold.value;
+
+   let x=new productsdata(product,category,image,price,gender,sold)
+arr.push(x)
+console.log(arr)
+   localStorage.setItem("product",JSON.stringify(arr))
+ }
+  
+   
+ 
+</script>

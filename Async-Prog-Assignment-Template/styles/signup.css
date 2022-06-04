@@ -1,0 +1,45 @@
+#navbar{
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    background-color: black;
+}
+#navbar2{
+    display:flex;
+    justify-content: space-around;
+    gap:30px;
+    color: white;
+    margin-right: 20px;
+    padding-top: 15px;
+}
+#log:hover{
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+    
+}
+#sign:hover{
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+    
+}
+#home:hover{
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+    
+}
+img{
+    height: 120px;
+}
+#form{
+    display:flex;
+    flex-direction: column;
+    
+    gap:15px;
+    margin: auto;
+    margin-top: 10%;
+    height: 200px;
+    width:270px; 
+}

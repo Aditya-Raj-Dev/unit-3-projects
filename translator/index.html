@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #nav{
+            width:30%;
+            height:40px;
+            color: blue;
+            background-color: yellow;
+            font-family: sans-serif;
+            margin: auto;
+            text-align: center;
+            margin-bottom: 100px;
+        }
+        #box{
+            display: flex;
+            margin:auto;
+            justify-content: space-between;
+            width:90%;
+
+        }
+        #input,#output{
+            height:400px;
+            gap:5%;
+            border:1px solid black;
+            width:40%;
+           
+        }
+        #input h1 ,#output h1{
+            text-align: center;
+            color:rgb(229, 255, 0);
+            background-color:rgb(3, 3, 3);
+            width:30%;
+            margin: auto;
+            margin-top: 20px;
+            font-family: sans-serif;
+        }
+        #inp_text{
+            font-size: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div id="nav">
+        <h1>TRANSLATOR</h1>
+    </div>
+    <div id="box">
+        <div id="input">
+            <h1>INPUT</h1>
+            <select name="inlang" id="inlang">
+                <option value="en">ENGLISH</option>
+                <option value="hi">HINDI</option>
+                
+            </select>
+            <button id="trans">TRANSLATE</button>
+            <textarea name="inp_text" id="inp_text"  oninput="main(append,500)"></textarea>
+        </div>
+
+        <div id="output">
+            <h1>OUTPUT</h1>
+            <select name="outlang" id="outlang">
+                  <option value="hi">HINDI</option>
+                  <option value="en">ENGLISH</option>
+              </select>
+            <p id="out_value"></p>
+
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    var trans=document.getElementById("trans").addEventListener("click",translate)
+
+    
+    function read(id){
+        return document.getElementById(id).value;
+    }
+ async function translate(){
+    try{
+        let input=read("inp_text")
+
+        let in_lang=read("inlang")
+        
+        let out_lang=read("outlang")
+
+     const res= await fetch(`https://libretranslate.de/translate`,{
+        method:'POST',
+        body:JSON.stringify({
+            q:input,
+            source:in_lang,
+            target:out_lang,
+            format:"text"
+        }),
+        headers:{
+            "content-Type" :"application/json",
+        },
+      
+    });
+    const {translatedText} =await res.json()
+    console.log(translatedText)
+    // let output=document.getElementById("out_value")
+    return translatedText
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
+let  append= async ()=>{
+    let data= await translate()
+    let output=document.getElementById("out_value")
+    console.log("data",data)
+    output.innerText=data
+
+}
+let id;
+let main=(func,time)=>{
+    if(id){
+        clearTimeout(id)
+    }
+    id= setTimeout(function(){
+        func()
+    },time)
+}
+</script>

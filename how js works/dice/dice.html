@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice</title>
+    <style>
+        #box{
+            width:19%;
+            margin:auto;
+            height: 350px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            margin-top: 13%;
+            padding-top: 3%;
+            justify-items: center;
+            justify-content: center;
+        }
+        #winner{
+            height:13%;
+            width:32%;
+            margin:auto;
+            
+            background-color: aquamarine;
+            gap:10px;
+        }
+        #winner>h1{
+            text-align: center;
+            margin:0%
+        }
+        #member{
+            margin-top: 7%;
+            margin-bottom: 9%;
+            display: flex;
+            justify-content: space-around;
+        }
+        #roll{
+            justify-items: center;
+            justify-content: center;
+            margin-left: 32%;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div id="winner">
+            <h1 id="win">1</h1>
+        </div>
+
+        <div id="member">
+            <div id="member-1">
+                <h1 id="a">1</h1>
+                <h1>A</h1>
+            </div>
+            <div id="member-2">
+                <h1 id="b">1</h1>
+                <h1>B</h1>
+            </div>
+            <div id="member-3">
+                <h1 id="c">1</h1>
+                <h1>C</h1>
+            </div>
+        </div>
+        <button id="roll">ROLL THE DICE</button>
+    </div>
+</body>
+</html>
+<script>
+    document.getElementById("roll").addEventListener("click",rollthedice)
+    var m1=document.getElementById("a");
+    
+    var m2=document.getElementById("b");
+    
+    var m3=document.getElementById("c");
+    
+    
+
+    function rollthedice(){
+        m1.innerText=Math.ceil(Math.random()*6)
+        m2.innerText=Math.ceil(Math.random()*6)
+        m3.innerText=Math.ceil(Math.random()*6)
+
+        var a=m1.innerText;
+        var b=m2.innerText;
+        var c=m3.innerText;
+        console.log(a)
+        console.log(b)
+
+        if(a>b && a>c){
+            if(b>c){
+                document.getElementById("win").innerText="A"
+                m1.style.color="green";
+                m2.style.color="yellow";
+                m3.style.color="red" ;
+            }
+            else if(c>b){
+                document.getElementById("win").innerText="A"
+                m1.style.color="green";
+                m3.style.color="yellow";
+                m2.style.color="red" ;
+            }
+        }
+        else if(a===b && c>a){
+            document.getElementById("win").innerText="C"
+            m3.style.color="green";
+                m1.style.color="blue";
+                m2.style.color="blue" ;
+        }
+        else if(a===b && c<a){
+            document.getElementById("win").innerText="DRAW"
+            m3.style.color="red";
+                m1.style.color="blue";
+                m2.style.color="blue" ;
+        }
+        else if(a===c && b>a){
+            document.getElementById("win").innerText="B"
+            m2.style.color="green";
+                m1.style.color="blue";
+                m3.style.color="blue" ;
+        }
+        else if(a===c && b<a){
+            document.getElementById("win").innerText="DRAW"
+            m2.style.color="red";
+                m1.style.color="blue";
+                m3.style.color="blue" ;
+        }
+
+        else if(c===b && a>c){
+            document.getElementById("win").innerText="A"
+            m1.style.color="green";
+                m3.style.color="blue";
+                m2.style.color="blue" ;
+        }
+        else if(c===b && a<c){
+            document.getElementById("win").innerText="DRAW"
+            m1.style.color="red";
+                m3.style.color="blue";
+                m2.style.color="blue" ;
+        }
+        else if(a===b && b===c){
+            document.getElementById("win").innerText="DRAW"
+            m3.style.color="blue";
+                m1.style.color="blue";
+                m2.style.color="blue" ;
+        }
+        else if(b>a && b>c){
+            if(a>c){
+                document.getElementById("win").innerText="B"
+
+                m2.style.color="green";
+                m1.style.color="yellow";
+                m3.style.color="red" ;
+            }
+            else if(c>a){
+                document.getElementById("win").innerText="B"
+
+                m2.style.color="green";
+                m3.style.color="yellow";
+                m1.style.color="red" ;
+            }
+        }
+        else if(c>a && c>b){
+            if(a>b){
+                document.getElementById("win").innerText="C"
+                m3.style.color="green";
+                m1.style.color="yellow";
+                m2.style.color="red" ;
+            }
+            else if(b>a){
+                document.getElementById("win").innerText="C"
+
+                m3.style.color="green";
+                m2.style.color="yellow";
+                m1.style.color="red" ;
+            }
+        }
+        
+    }
+</script>

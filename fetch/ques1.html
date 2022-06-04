@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #flex{
+            display: flex;
+            gap:10px;
+        }
+        #box{
+            display:grid;
+            grid-template-columns: repeat(4,1fr);
+        }
+        body{
+            background-color: rgb(6, 6, 88);
+        }
+        #nav img{
+            height:80px;
+            padding: top 0px;
+        }
+        #nav{
+            margin: 10px;
+            padding-left: 20px;
+            padding-right: 30px;
+           display: flex;
+           gap:10px;
+           justify-content: space-between;
+        }
+        .bar1, .bar2, .bar3 {
+  width: 25px;
+  height: 2px;
+  background-color:white;
+  margin: 6px 0;
+  transition: 0.4s;
+  cursor: pointer;
+}
+#bar{
+    margin-top: 27px;
+}
+#tv{
+    display: flex;
+    gap:20px;
+    font-family: sans-serif;
+    color:white;
+    margin-top: 15px;
+}
+#one{
+    display: flex;
+}
+.search{
+    font-size: 20px;
+    font-family: sans-serif;
+}
+#movieName{
+    height:25px;
+    width:190px;
+    margin-top: 30px;
+    margin-right: 25px;
+}
+#slideshow img{
+    height:400px;
+    width:100%;
+    margin-bottom: 60px;;
+}
+#box img{
+    
+    width:100%
+
+}
+#box{
+    gap:80px;
+    color:white;
+    font-family: sans-serif;
+}
+#flex{
+    justify-content: space-around;
+}
+    </style>
+</head>
+<body>
+    <div id="nav">
+        <div id="one">
+            <div id="bar">
+                <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+            </div>
+            <img src="https://www.gizbot.com/img/2020/09/disneyhotstar-1600864430.jpg" alt="">
+        
+        <div id="tv">
+            <h3>TV</h3>
+            <h3>Movies</h3>
+            <h3>Sports</h3>
+            <h3>Disney+</h3>
+        </div>
+        </div>
+    <div id="search">
+        <input type="text" id="movieName"  placeholder="search🔎" />
+        <button class="search">SEARCH</button>
+    </div>
+    </div>
+    <div id="slideshow">
+        <img id="slide" src="https://www.mmppicture.co.in/wp-content/uploads/2022/03/The-Kashmir-Files-Poster-1-1080x608.jpg">
+    </div>
+    <div id="box"></div>
+</body>
+</html>
+<script>
+
+    document.querySelector(".search").addEventListener("click",searchmovie)
+
+    function searchmovie(){
+        
+        let movieName=document.getElementById("movieName").value
+
+        const api=`http://www.omdbapi.com/?i=tt3896198&apikey=5803d9e8&t=${movieName}`
+   
+        
+        let x=fetch(api)
+        .then(function(res){
+        return  res.json()
+        }).then(function(res){
+            console.log("ksdds",res)
+            var data=res.Search
+            showdata(data)
+        })
+
+        .catch(function(err){
+            console.log(err)
+        })
+    }
+    let box=document.getElementById("box")
+    
+    function showdata(data){
+        box.innerHTML=""
+        data.map(function(el){
+        let div=document.createElement("div")
+
+        let name=document.createElement("div")
+        name.setAttribute("id","flex")
+         
+        let title=document.createElement("h2")
+        title.innerText=el.Title
+
+        let year=document.createElement("h2")
+        year.innerText=el.Year
+
+        let type=document.createElement("h2")
+        type.innerText=el.Type
+
+        let img=document.createElement("img")
+        img.src=el.Poster
+
+        
+        div.append(img,name)
+        name.append(type,title,year)
+        box.append(div)
+
+        })
+    }
+
+var array=["https://wallpapercave.com/wp/wp8328112.jpg",
+"https://www.socialnews.xyz/wp-content/uploads/2022/03/27/maxresdefault-63.jpg",
+"https://w0.peakpx.com/wallpaper/472/353/HD-wallpaper-allu-arjun-pushpa.jpg",
+"https://w0.peakpx.com/wallpaper/192/97/HD-wallpaper-spider-man-spider-man-3-2007.jpg",
+"https://w0.peakpx.com/wallpaper/156/622/HD-wallpaper-avengers-endgame-all-characters-superheroes-movies.jpg","https://www.mmppicture.co.in/wp-content/uploads/2022/03/The-Kashmir-Files-Poster-1-1080x608.jpg"]
+
+
+var slide=document.getElementById("slide")
+var shlideshow=document.getElementById("slideshow")
+
+let i=0;
+
+setInterval(function(){
+if(i==array.length){
+    i=0
+}
+slide.src=array[i]
+i++;
+
+
+},3000)
+
+</script>

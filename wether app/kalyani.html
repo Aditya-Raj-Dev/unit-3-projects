@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="city">
+    <button onclick="getWeather2()">get wether</button>
+    <div id="showData"></div>
+</body>
+</html>
+<script> 
+    async function getWeather2() {
+  
+  try {
+
+       let city = document.getElementById("city").value;
+
+      let res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=4c720ebec900cabef71eb3e672d8d8f0&units=metric`)
+      let data = await res.json()
+      console.log("data:", data)
+      var res2 = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&exclude=hourly,minutely,current&appid=4c720ebec900cabef71eb3e672d8d8f0&units=metric`);
+      var data2 = await res2.json();
+      console.log("date2:", data2)
+      const unixTime = data2.daily[0].dt;
+      const date = new Date(unixTime * 100)
+
+
+
+      for (var i = 0; i < data2.daily.length-1; i++) {
+
+          let box = document.createElement("div");
+          box.setAttribute("clsass","box")
+          let dateBox = document.createElement("h4");
+
+          const unixTime = data2.daily[i].dt;
+          const date = new Date(unixTime * 1000)
+
+          dateBox.innerText = date;
+          console.log(dateBox);
+
+          let minTempBox = document.createElement("h4");
+          minTempBox.innerText = `MinTemp:${data2.daily[i].temp.min}°C`;
+
+          let maxTempBox = document.createElement("h4");
+          maxTempBox.innerText = `MaxTemp:${data2.daily[i].temp.max}°C`
+
+
+          var weather = document.createElement("h4");
+          weather.innerText =`Whether: ${data2.daily[i].weather[0].main}`;
+         
+       
+
+             
+
+          box.append(dateBox, minTempBox, maxTempBox, weather)
+          document.getElementById("showData").append(box)
+
+      }
+
+
+
+
+  }
+  catch (err) {
+      console.log(err)
+  }
+
+}
+</script>
